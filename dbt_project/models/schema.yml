@@ -1,0 +1,19 @@
+# testing
+version: 2
+
+models:
+  #####  Home task comment
+  # staging layer:
+  #   check for not null for price (within analytics layer null values are substituted with 0 to avoid errors)
+  # analytics layer:
+  #   check for UUID & not null for primary keys
+  # many more tests reasonable
+  - name: order
+    columns:
+      - name: order_id
+        tests:
+          - unique
+          - not_null
+      - name: price_eur
+        tests:
+          - not_null

@@ -2,20 +2,20 @@
 
 ## Getting started
 
-The repository contains a dbt project & an ERM diagram as solution to part 1. Some scripts are commented for additional explanation or approaches.
+The repository consists of a dbt project & an ERM diagram as solution to part 1. Some scripts are commented for additional explanation or approaches.
 
-All answers to the questions can be found within this README.md file further down.
+All answers to the questions can be found within this README.md file.
 
 ## Part 1: Data model task
 
 ### Data model decision - Star Schema (Kimball)
 
-Following the approach of schema on read to account for the main requirement "self-serve analytics" and at the same time considering the amount of data which we will collect until 2030. I calculated around 6 billion rows/orders which reflects an market share of 20% from 40mio trips by 2030 (incl market growth rate).
+Following the approach of schema on read to account for the main requirement "self-serve analytics" and at the same time considering the amount of data which we will collect until 2030. I calculated around 6 billion rows/orders which reflects a market share of 20% from 40mio trips by 2030 (incl market growth rate).
 - Achieve highest consumability to not overwhelm business user...
-    - little amount of tables in analytics layer or respective representation within looker
-    - clear and consistent naming which aligns with the business
+    - little amount of tables in analytics layer or respective semantic layer within looker
+    - clear and consistent naming which aligns with the business logic
 - Performance while reading the data...
-    - joins are heavy to perform and with star schema we reduce the amount of joins to a minimum by enabling at the same time a high granularity
+    - joins are heavy to perform and with star schema we can reduce the amount of joins to a minimum by enabling at the same time a high granularity
 
 
 ### Data model as ERM diagram
@@ -43,7 +43,7 @@ Following the approach of schema on read to account for the main requirement "se
 
 - run scripts to check for inconsistency and errors
 - testing
-    - testing before run is not implemented in a way it would work, solve with dbt cloud or own orchestration of dbt core
+    - testing before run is not implemented in a way it shall work, orchestrate with dbt cloud or own orchestration of dbt core using for instance airflow
     - test source freshness of ingested data (raw data is missing ingestion timestamp which need to be added)
 - Reducing latency for business user and keeping the business logic within the database (single source of truth) by adding data marts/aggregated tables to solve for KPIs like revenue, active customers etc. divided by dimensions like region, customer_group etc.. This will enable us to use smaller tables where no join needs to be executed via looker and many reports will be much quicker containing of those KPIs and still sliced by the most important dimensions.
 - Improving updates by implementing incremental loads for fact tables (perhaps also dim tables) since a full load will be expensive in databricks and probably unnecessary slow considering the amount of data we will reach.

@@ -12,5 +12,5 @@ select
     business_line,
     seat_number,
     status,
-    price_eur
+    coelasce(price_eur,0) as price_eur
 from {{ref('order')}}

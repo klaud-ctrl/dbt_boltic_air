@@ -4,4 +4,4 @@ select
     cast("Customer Group ID" as bigint)             as customer_group_id,
     cast("Email" as string)                         as email,
     cast("Phone Number" as string)                  as phone_number
-from {{ ref('raw_customer') }}
+from {{ source('ingest_sap','raw_customer') }}

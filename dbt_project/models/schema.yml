@@ -2,18 +2,26 @@
 version: 2
 
 models:
-  #####  Home task comment
-  # staging layer:
+  #####  Home task comment - many more tests reasonable
+  # raw data layer:
+  #   check for UUID & not null for primary keys
   #   check for not null for price (within analytics layer null values are substituted with 0 to avoid errors)
+  - name: raw_order
+    tags: ['injected_data']
+    columns:
+      - name: "Order ID"
+        tests:
+          - unique
+          - not_null
+      - name: "Price (EUR)"
+        tests:
+          - not_null
   # analytics layer:
   #   check for UUID & not null for primary keys
-  # many more tests reasonable
-  - name: order
+  - name: fact_order
+    tags: ['transformed_data']
     columns:
       - name: order_id
         tests:
           - unique
-          - not_null
-      - name: price_eur
-        tests:
           - not_null

@@ -53,4 +53,22 @@ Following the approach of schema on read to account for the main requirement "se
 
 ## Part 2: CI/CD task
 
+### How would you envision the ideal CI/CD process to implement these changes over time?
 
+#### environments
+I would choose one of the 3 big clouds so the tooling/SaaS is working with one another smoothly and I believe all 3 clouds provide a decent/similiar tooling. Since you mentioned AWS S3 storage I assume AWS is one of the clouds being used for more than just the storage. AWS has the highest market share of all 3 clouds and its known as the most tech heavy cloud. This increases the possibility of finding trained employees.
+
+#### tools, tests, processes
+After we have chosen the platform, I would go with the provided approach by AWS which is AWS CodePipeline. This tool is made up of several other tools, each dedicated to a specific aspect of the CI/CD process, which include:
+- Source: Github (sticking with it because I read it works smoothly with AWS CI/CD tools)
+- Build & Test: AWS CodeBuild
+- Deploy: AWS CodeDeploy
+- Monitor: AWS CloudWatch
+
+
+### How would your answer differ in the real world use case where resources are limited and perfect tooling might not be available?
+
+#### low effort/short term measurements
+Enable existing tooling more, like dbt which can be used for testing and monitoring of the deployment using logs or github actions for certain parts of the process.
+#### high effort/long term measurements
+I have never used it but jenkins seems to be a wide spread open source solution. I cant tell how much effort it is to implement and maintain this.
